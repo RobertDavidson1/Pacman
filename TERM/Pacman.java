@@ -1,4 +1,5 @@
 package TERM;
+import java.util.Scanner;
 
 public class Pacman {
     static int HEIGHT = 10;
@@ -71,7 +72,7 @@ public class Pacman {
 
         }
 
-        // Initialize Pacman's position
+        // Initialize Pac man's position
         // Place Pacman at a position not occupied by a wall
         pacmanX = 1;
         pacmanY = 1;
@@ -106,12 +107,67 @@ public class Pacman {
         }
     }
 
+    public static boolean isValidMove(char[][] grid, int x, int y) {
 
+        if (grid[x][y] == Assets.WALL.charAt(0)) {
+            return false;
+        }
+        return true;
+    }
 
+    public static void movePacman(char[][] grid, String direction) {
+        int newX = pacmanX;
+        int newY = pacmanY;
+
+        if (direction.equalsIgnoreCase("w")) {
+            newX -= 1;
+        } else if (direction.equalsIgnoreCase("s")) {
+            newX += 1;
+        } else if (direction.equalsIgnoreCase("a")) {
+            newY -= 1;
+        } else if (direction.equalsIgnoreCase("d")) {
+            newY += 1;
+        } else {
+            // Invalid input
+            return;
+        }
+        if (isValidMove(grid, newX, newY)) {
+            // If there was food, consume it
+            if (grid[newX][newY] == Assets.FOOD.charAt(0)) {
+                // Food will be replaced with EMPTY when Pacman moves over it
+            }
+            // Update grid
+            grid[pacmanX][pacmanY] = Assets.EMPTY.charAt(0); // Remove Pacman from old position
+            pacmanX = newX;
+            pacmanY = newY;
+            grid[pacmanX][pacmanY] = Assets.PACMAN.charAt(0); // Place Pacman at new position
+        }
+    }
 
     public static void main(String[] args) {
-        char[][] grid = initGrid(10, 35);
-        showGrid(grid);
-    }
-}
+        char[][] grid = initGrid(HEIGHT, WIDTH);
+        Scanner scanner = new Scanner(System.in);
 
+        while (true) {
+            // Clear the console (optional)
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+
+            // Show the grid and score
+            showGrid(grid);
+
+
+
+            // Get user input
+            System.out.print("Move (WASD): ");
+            String input = scanner.nextLine();
+
+            // Move Pacman
+            movePacman(grid, input);
+
+        }
+
+//    scanner.close();
+    }
+
+}
