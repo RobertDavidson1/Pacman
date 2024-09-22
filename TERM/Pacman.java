@@ -1,8 +1,14 @@
 package TERM;
 
 public class Pacman {
-    int HEIGHT = 15;
-    int WIDTH = 35;
+    static int HEIGHT = 10;
+    static int WIDTH = 35;
+
+
+    // Positions of Pacman and Ghost
+    static int pacmanX, pacmanY;
+    static int ghostX, ghostY;
+    static int foodLeft;
 
     public static class Assets{
         // Colours    
@@ -65,13 +71,22 @@ public class Pacman {
 
         }
 
+        // Initialize Pacman's position
+        // Place Pacman at a position not occupied by a wall
+        pacmanX = 1;
+        pacmanY = 1;
+        grid[pacmanX][pacmanY] = Assets.PACMAN.charAt(0);
+
+        // Initialize Ghost's position
+        ghostX = HEIGHT - 2;
+        ghostY = WIDTH - 2;
+        grid[ghostX][ghostY] = Assets.GHOST.charAt(0);
+
         return grid;
 
     }
 
     public static void showGrid(char[][] grid) {
-        int food_count = 0;
-
         for (char[] chars : grid) {
             for (char aChar : chars) {
                 if (aChar == Assets.PACMAN.charAt(0)) {
@@ -82,7 +97,6 @@ public class Pacman {
                     System.out.print(Assets.BLUE + Assets.WALL + Assets.RESET + " ");
                 } else if (aChar == Assets.FOOD.charAt(0)) {
                     System.out.print(Assets.ORANGE + Assets.FOOD + Assets.RESET + " ");
-                    food_count += 1;
                 } else if (aChar == Assets.EMPTY.charAt(0)) {
                     System.out.print(Assets.EMPTY + Assets.RESET + " ");
                 }
