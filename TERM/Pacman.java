@@ -132,10 +132,6 @@ public class Pacman {
             return;
         }
         if (isValidMove(grid, newX, newY)) {
-            // If there was food, consume it
-            if (grid[newX][newY] == Assets.FOOD.charAt(0)) {
-                // Food will be replaced with EMPTY when Pacman moves over it
-            }
             // Update grid
             grid[pacmanX][pacmanY] = Assets.EMPTY.charAt(0); // Remove Pacman from old position
             pacmanX = newX;
