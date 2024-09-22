@@ -108,11 +108,7 @@ public class Pacman {
     }
 
     public static boolean isValidMove(char[][] grid, int x, int y) {
-
-        if (grid[x][y] == Assets.WALL.charAt(0)) {
-            return false;
-        }
-        return true;
+        return grid[x][y] != Assets.WALL.charAt(0);
     }
 
     public static void movePacman(char[][] grid, String direction) {
