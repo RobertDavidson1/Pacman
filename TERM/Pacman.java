@@ -9,7 +9,7 @@ public class Pacman {
     // Positions of Pacman and Ghost
     static int pacmanX, pacmanY;
     static int ghostX, ghostY;
-    static int foodLeft;
+
 
     public static class Assets{
         // Colours    
@@ -73,7 +73,6 @@ public class Pacman {
         }
 
         // Initialize Pac man's position
-        // Place Pacman at a position not occupied by a wall
         pacmanX = 1;
         pacmanY = 1;
         grid[pacmanX][pacmanY] = Assets.PACMAN.charAt(0);
@@ -141,7 +140,6 @@ public class Pacman {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            // Clear the console (optional)
             System.out.print("\033[H\033[2J");
             System.out.flush();
 
