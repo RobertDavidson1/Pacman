@@ -2,7 +2,7 @@ package TERM;
 import java.util.Scanner;
 
 public class Pacman {
-    static int HEIGHT = 10;
+    static int HEIGHT = 11;
     static int WIDTH = 35;
 
 
