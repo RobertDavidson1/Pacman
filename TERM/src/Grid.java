@@ -1,16 +1,19 @@
 package TERM.src;
 
 public class Grid {
-    private char[][] grid;
-    private int height;
-    private int width;
+    private final char[][] grid;
+    private final int height;
+    private final int width;
     private int initialFood;
+    private int remainingFood;   //
+
 
     public Grid(int height, int width) {
         this.height = height;
         this.width = width;
         grid = new char[height][width];
-        this.initialFood = 0;
+        this.initialFood = 0;  // Initial food is zero until we fill the grid
+        this.remainingFood = 0; // Initially no food is counted
     }
 
     public void initGrid() {
@@ -51,7 +54,17 @@ public class Grid {
             }
             grid[i][width - 1] = Assets.WALL.charAt(0);
         }
+        remainingFood = initialFood;
+    }
 
+    // Return remaining food count
+    public int getRemainingFood() {
+        return remainingFood;
+    }
+
+    // Return initial food count
+    public int getInitialFood() {
+        return initialFood;
     }
 
     public void displayGrid() {
@@ -64,7 +77,6 @@ public class Grid {
 
             System.out.println();
             }
-
         }
     }
 
