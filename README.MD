@@ -5,7 +5,7 @@
 ### To do:
 - Ghost moving logic (towards pacman)
 - ~~Different ghost sprite?~~
-- Score counter (initial food - current food)
+- ~~Score counter (initial food - current food)~~
 - ~~Change colouring of CT2101 art to stand out more~~
 - End game logic
   1. Death by ghost
