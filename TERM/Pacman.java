@@ -106,8 +106,6 @@ public class Pacman {
                     System.out.print(Assets.BLUE + Assets.WALL + Assets.RESET + " ");
                 } else if (aChar == 'Y') {
                     System.out.print(Assets.YELLOW + Assets.WALL + Assets.RESET + " ");
-                } else if (aChar == '•') {
-                    System.out.print(Assets.ORANGE + Assets.FOOD + Assets.RESET + " ");
                 } else if (aChar == ' ') {
                     System.out.print(Assets.EMPTY + " ");
                 } else {
