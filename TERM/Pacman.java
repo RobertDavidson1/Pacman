@@ -20,7 +20,7 @@ public class Pacman {
     static String currentPacmanSprite = Assets.PACMAN_RIGHT; //
 
     // Track the previous tile of the ghost
-    static char previousGhostTile;
+    static char previousGhostTile = Assets.FOOD.charAt(0);
 
     // Counters for food
     static int initialFood;
@@ -30,6 +30,8 @@ public class Pacman {
     static int difficulty;
 
     static Random random = new Random();
+
+    static Scanner scanner = new Scanner(System.in);
 
     public static class Assets {
         // Colours represented as ANSI escape codes
@@ -58,7 +60,7 @@ public class Pacman {
         public static final char[][] art = {
                 {'R', 'R', 'R', '•', 'G', 'G', 'G', '•', 'R', 'R', '•', '•', 'Y', 'Y', '•', '•', '•', 'G', '•', '•', 'B', 'B', '•'},
                 {'R', '•', '•', '•', '•', 'G', '•', '•', '•', '•', 'R', '•', '•', 'Y', '•', '•', 'G', ' ', 'G', '•', '•', 'B', '•'},
-                {'R', '•', '•', '•', '•', 'G', '•', '•', '•', '•', 'R', '•', '•', 'Y', '•', '•', 'G', ' ', 'G', '•', '•', 'B', '•'},
+                {'R', '•', '•', '•', '•', 'G', '•', '•', '•', 'R', 'R', '•', '•', 'Y', '•', '•', 'G', ' ', 'G', '•', '•', 'B', '•'},
                 {'R', '•', '•', '•', '•', 'G', '•', '•', 'R', '•', '•', '•', '•', 'Y', '•', '•', 'G', ' ', 'G', '•', '•', 'B', '•'},
                 {'R', 'R', 'R', '•', '•', 'G', '•', '•', 'R', 'R', 'R', '•', 'Y', 'Y', 'Y', '•', '•', 'G', '•', '•', 'B', 'B', 'B'},
         };
@@ -78,6 +80,15 @@ public class Pacman {
             charToColoredString.put('Y', Assets.YELLOW + Assets.WALL + Assets.RESET + " ");
             charToColoredString.put(Assets.GHOST.charAt(0), Assets.PINK + Assets.GHOST + Assets.RESET + " ");
         }
+
+        static String[][] welcomeScreen = {
+                {"██████╗  █████╗  ██████╗███╗   ███╗ █████╗ ███╗   ██╗"},
+                {"██╔══██╗██╔══██╗██╔════╝████╗ ████║██╔══██╗████╗  ██║"},
+                {"██████╔╝███████║██║     ██╔████╔██║███████║██╔██╗ ██║"},
+                {"██╔═══╝ ██╔══██║██║     ██║╚██╔╝██║██╔══██║██║╚██╗██║"},
+                {"██║     ██║  ██║╚██████╗██║ ╚═╝ ██║██║  ██║██║ ╚████║"},
+                {"╚═╝     ╚═╝  ╚═╝ ╚═════╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝"},
+        };
     }
 
     public static char[][] initGame(int GRID_HEIGHT, int GRID_WIDTH) {
@@ -309,12 +320,37 @@ public class Pacman {
         }
     }
 
+    public static int displayWelcomeScreen() {
+        clearConsole();
+        for (String[] row : Assets.welcomeScreen) {
+            for (String cell : row) {
+                System.out.println(Assets.ORANGE + cell);
+            }
+        }
+        System.out.println("        Enter a Difficulty Level (1, 2, 3): ");
+        try {
+            difficulty = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character
+        }
+        catch (Exception e) {
+            scanner.nextLine(); // Consume the newline character
+            return -1;
+        }
+
+
+        return difficulty;
+    }
+
 
     public static void main (String[]args){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter A Difficulty Level (1, 2, 3): ");
-        difficulty = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline character
+
+        while (true) {
+            difficulty = displayWelcomeScreen();
+            if (difficulty >= 1 && difficulty <= 3) {
+                break;
+            }
+        }
+
 
         char[][] grid = initGame(GRID_HEIGHT, GRID_WIDTH);
         foodRemaining = initialFood;
@@ -329,6 +365,7 @@ public class Pacman {
             // Show the grid and score
             showGrid(grid);
 
+            System.out.println("Difficulty Level: " + difficulty);
             // Print the food remaining
             System.out.printf("Food Remaining:  %d / %d%n", foodRemaining, initialFood);
 
