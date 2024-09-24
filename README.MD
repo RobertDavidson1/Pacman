@@ -4,7 +4,7 @@
 
 ### To do:
 - Ghost moving logic (towards pacman)
-- _Different ghost sprite?_
+- ~~Different ghost sprite?~~
 - Score counter (initial food - current food)
 - ~~Change colouring of CT2101 art to stand out more~~
 - End game logic
