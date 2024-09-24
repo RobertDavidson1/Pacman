@@ -20,11 +20,12 @@ public class Pacman {
     // Track the previous tile of the ghost
     static char previousGhostTile;
 
+    // Counters for food
     static int initialFood;
     static int foodRemaining;
 
     public static class Assets {
-        // Colours
+        // Colours represented as ANSI escape codes
         public static final String RESET = "\033[0m";
         public static final String PINK = "\033[38;2;234;130;229m";
         public static final String ORANGE = "\033[38;2;219;133;28m";
@@ -33,18 +34,17 @@ public class Pacman {
         public static final String RED = "\033[38;2;229;72;67m";
         public static final String GREEN = "\033[38;2;48;238;39m";
 
-        // Pacman Sprites for Different Directions
+        // Pacman sprites for different directions
         public static final String PACMAN_RIGHT = "ᗧ";
-        public static final String PACMAN_LEFT = "ᗤ"; // You can change the sprite for left-facing Pacman
-        public static final String PACMAN_UP = "ᗢ";   // Customize the sprite for up-facing Pacman
+        public static final String PACMAN_LEFT = "ᗤ";
+        public static final String PACMAN_UP = "ᗢ";
         public static final String PACMAN_DOWN = "ᗣ";
 
-        // Characters
+        // Other game sprites
         public static final String GHOST = "⩍";
         public static final String WALL = "▀";
         public static final String FOOD = "•";
         public static final String EMPTY = " ";
-
 
         // Art representing module code
         // R - Red, G - Green, Y - Yellow, B - Blue, • - Food,
@@ -55,9 +55,6 @@ public class Pacman {
                 {'R', '•', '•', '•', '•', 'G', '•', '•', 'R', '•', '•', '•', '•', 'Y', '•', '•', 'G', ' ', 'G', '•', '•', 'B', '•'},
                 {'R', 'R', 'R', '•', '•', 'G', '•', '•', 'R', 'R', 'R', '•', 'Y', 'Y', 'Y', '•', '•', 'G', '•', '•', 'B', 'B', 'B'},
         };
-
-
-
 
         // Map characters to their colored string representations
         static Map<Character, String> charToColoredString = new HashMap<>();
@@ -73,16 +70,14 @@ public class Pacman {
             charToColoredString.put('B', Assets.BLUE + Assets.WALL + Assets.RESET + " ");
             charToColoredString.put('Y', Assets.YELLOW + Assets.WALL + Assets.RESET + " ");
             charToColoredString.put(Assets.GHOST.charAt(0), Assets.PINK + Assets.GHOST + Assets.RESET + " ");
-
         }
-
     }
 
     public static char[][] initGame(int GRID_HEIGHT, int GRID_WIDTH) {
         // Initialize grid
         char[][] grid = new char[GRID_HEIGHT][GRID_WIDTH];
 
-        // Fill the grid with food initially
+        // Fill the entire grid with food initially
         for (int i = 0; i < GRID_HEIGHT; i++) {
             for (int j = 0; j < GRID_WIDTH; j++) {
                 grid[i][j] = Assets.FOOD.charAt(0);
@@ -90,7 +85,7 @@ public class Pacman {
             }
         }
 
-        // Add walls to the top and bottom rows
+        // Add walls to the top and bottom rows, decrement initialFood if we overwrite a food tile
         for (int i = 0; i < GRID_WIDTH; i++) {
             // Top row
             if (grid[0][i] == Assets.FOOD.charAt(0)) {
@@ -105,7 +100,7 @@ public class Pacman {
             grid[GRID_HEIGHT - 1][i] = Assets.WALL.charAt(0);
         }
 
-        // Add walls to the far left and right columns
+        // Add walls to the far left and right columns, decrement initialFood if we overwrite a food tile
         for (int i = 1; i < GRID_HEIGHT - 1; i++) { // Start from 1 and end at GRID_HEIGHT - 2 to avoid corners
             // Left column
             if (grid[i][0] == Assets.FOOD.charAt(0)) {
@@ -120,8 +115,7 @@ public class Pacman {
             grid[i][GRID_WIDTH - 1] = Assets.WALL.charAt(0);
         }
 
-
-        // Calculate starting positions for art
+        // Calculate starting positions in the grid for art (Art is 5x23)
         int startX = (GRID_HEIGHT - 5) / 2;
         int startY = (GRID_WIDTH - 23) / 2;
 
@@ -130,7 +124,7 @@ public class Pacman {
             for (int j = 0; j < Assets.art[i].length; j++) {
                 grid[startX + i][startY + j] = Assets.art[i][j];
 
-                // Decrement initialFood if we overwrite a food tile with a non-food character
+                // Decrement initialFood if we overwrite a food tile
                 if (Assets.art[i][j] != Assets.FOOD.charAt(0)) {
                     initialFood--;
                 }
@@ -146,6 +140,7 @@ public class Pacman {
             initialFood--;
         }
 
+        // Place Pacman on the grid
         grid[pacmanX][pacmanY] = currentPacmanSprite.charAt(0);
         initialFood--;
 
@@ -153,13 +148,11 @@ public class Pacman {
         ghostX = GRID_HEIGHT - 2;
         ghostY = GRID_WIDTH - 2;
 
-
-
         // Store the original content of the ghost's starting tile
         previousGhostTile = grid[ghostX][ghostY];
 
+        // Place the ghost on the grid
         grid[ghostX][ghostY] = Assets.GHOST.charAt(0);
-
 
         return grid;
     }
@@ -168,15 +161,12 @@ public class Pacman {
         for (char[] row : grid) {
             for (char cell : row) {
                 if (cell == currentPacmanSprite.charAt(0)) {
-                    // Handle Pacman separately
+                    // Handle Pacman separately because it has the sprite is dynamic
                     System.out.print(Assets.YELLOW + currentPacmanSprite + Assets.RESET + " ");
                 } else {
-
                     // Use the mapping for other characters
                     String output = Assets.charToColoredString.getOrDefault(cell, cell + " ");
                     System.out.print(output);
-
-
                 }
             }
             System.out.println();
@@ -229,18 +219,10 @@ public class Pacman {
         }
     }
 
-
-
-
-
-
-
     public static void main(String[] args) {
         char[][] grid = initGame(GRID_HEIGHT, GRID_WIDTH);
         foodRemaining = initialFood;
         Scanner scanner = new Scanner(System.in);
-
-
 
         while (true) {
             System.out.print("\033[H\033[2J");
@@ -249,10 +231,8 @@ public class Pacman {
             // Show the grid and score
             showGrid(grid);
 
-
+            // Print the food remaining
             System.out.printf("Food Remaining:  %d / %d%n", foodRemaining, initialFood);
-
-
 
             // Get user input
             System.out.print("Move (WASD): ");
@@ -264,7 +244,4 @@ public class Pacman {
         }
 
     }
-
-
-
 }
