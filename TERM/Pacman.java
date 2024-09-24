@@ -219,6 +219,54 @@ public class Pacman {
         }
     }
 
+    public static void moveGhost(char[][] grid) {
+        greedyGhostMove(grid);
+    }
+
+    public static void greedyGhostMove(char[][] grid) {
+        // Calculate difference in x and y coordinates
+        int deltaX = pacmanX - ghostX;
+        int deltaY = pacmanY - ghostY;
+
+        // Store the direction to move in
+        int moveX = 0;
+        int moveY = 0;
+
+        // If the ghost is not at the same X position as Pacman
+        if (deltaX != 0) {
+            moveX = deltaX / Math.abs(deltaX); // Move towards Pacman in the x direction
+        }
+
+        // If the ghost is not at the same Y position as Pacman
+        if (deltaY != 0) {
+            moveY = deltaY / Math.abs(deltaY); // Move towards Pacman in the y direction
+        }
+
+        // Check if the move is valid
+        // Try horizontal move first
+        if (moveX != 0 && isValidMove(grid, ghostX + moveX, ghostY)) {
+            updateGhostPosition(grid, ghostX + moveX, ghostY);
+        }
+        // Try vertical move if horizontal move is not possible
+        else if (moveY != 0 && isValidMove(grid, ghostX, ghostY + moveY)) {
+            updateGhostPosition(grid, ghostX, ghostY + moveY);
+        }
+    }
+
+    public static void updateGhostPosition(char[][] grid, int newX, int newY) {
+        // Restore the old position with the previous tile content
+        grid[ghostX][ghostY] = previousGhostTile;
+
+        ghostX = newX; // Update Ghost's x position
+        ghostY = newY; // Update Ghost's y position
+
+        // Store content of new tile before ghost moves onto it
+        previousGhostTile = grid[newX][newY];
+
+        // Place the ghost on new position
+        grid[newX][newY] = Assets.GHOST.charAt(0);
+    }
+
     public static void main(String[] args) {
         char[][] grid = initGame(GRID_HEIGHT, GRID_WIDTH);
         foodRemaining = initialFood;
@@ -240,6 +288,9 @@ public class Pacman {
 
             // Move Pacman
             movePacman(grid, input);
+
+            // Move Ghost
+            moveGhost(grid);
 
         }
 
