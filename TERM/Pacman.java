@@ -17,23 +17,24 @@ public class Pacman {
         public static final String PINK = "\033[38;2;234;130;229m";
         public static final String ORANGE = "\033[38;2;219;133;28m"; 
         public static final String YELLOW = "\033[38;2;253;255;0m"; 
-        public static final String BLUE = "\033[38;2;33;33;222m"; 
+        public static final String BLUE = "\033[38;2;33;33;222m";
+        public static final String RED = "\033[38;2;229;72;67m";
+        public static final String GREEN = "\033[38;2;48;238;39m";
         
         // Characters
         public static final String PACMAN = "⬤";
-        public static final String GHOST = "G";
+        public static final String GHOST = "O";
         public static final String WALL = "▀";
         public static final String FOOD = "•";
         public static final String EMPTY = " ";
     
         public static final char[][] art = {
-            {'▀', '▀', '▀', '•', '▀', '▀', '▀', '•', '▀', '▀', '•', '•', '▀', '▀', '•', '•', '•', '▀', '•', '•', '▀', '▀', '•'},
-            {'▀', '•', '•', '•', '•', '▀', '•', '•', '•', '•', '▀', '•', '•', '▀', '•', '•', '▀', ' ', '▀', '•', '•', '▀', '•'},
-            {'▀', '•', '•', '•', '•', '▀', '•', '•', '•', '•', '▀', '•', '•', '▀', '•', '•', '▀', ' ', '▀', '•', '•', '▀', '•'},
-            {'▀', '•', '•', '•', '•', '▀', '•', '•', '▀', '•', '•', '•', '•', '▀', '•', '•', '▀', ' ', '▀', '•', '•', '▀', '•'},
-            {'▀', '▀', '▀', '•', '•', '▀', '•', '•', '▀', '▀', '▀', '•', '▀', '▀', '▀', '•', '•', '▀', '•', '•', '▀', '▀', '▀'},
-            };
-
+                {'R', 'R', 'R', '•', 'G', 'G', 'G', '•', 'R', 'R', '•', '•', 'Y', 'Y', '•', '•', '•', 'G', '•', '•', 'B', 'B', '•'},
+                {'R', '•', '•', '•', '•', 'G', '•', '•', '•', '•', 'R', '•', '•', 'Y', '•', '•', 'G', ' ', 'G', '•', '•', 'B', '•'},
+                {'R', '•', '•', '•', '•', 'G', '•', '•', '•', '•', 'R', '•', '•', 'Y', '•', '•', 'G', ' ', 'G', '•', '•', 'B', '•'},
+                {'R', '•', '•', '•', '•', 'G', '•', '•', 'R', '•', '•', '•', '•', 'Y', '•', '•', 'G', ' ', 'G', '•', '•', 'B', '•'},
+                {'R', 'R', 'R', '•', '•', 'G', '•', '•', 'R', 'R', 'R', '•', 'Y', 'Y', 'Y', '•', '•', 'G', '•', '•', 'B', 'B', 'B'},
+        };
     }
 
     public static char[][] initGrid(int HEIGHT, int WIDTH) {
@@ -97,18 +98,32 @@ public class Pacman {
                     System.out.print(Assets.BLUE + Assets.WALL + Assets.RESET + " ");
                 } else if (aChar == Assets.FOOD.charAt(0)) {
                     System.out.print(Assets.ORANGE + Assets.FOOD + Assets.RESET + " ");
-                } else if (aChar == Assets.EMPTY.charAt(0)) {
-                    System.out.print(Assets.EMPTY + Assets.RESET + " ");
+                } else if (aChar == 'R') {
+                    System.out.print(Assets.RED + Assets.WALL + Assets.RESET + " ");
+                } else if (aChar == 'G') {
+                    System.out.print(Assets.GREEN + Assets.WALL + Assets.RESET + " ");
+                } else if (aChar == 'B') {
+                    System.out.print(Assets.BLUE + Assets.WALL + Assets.RESET + " ");
+                } else if (aChar == 'Y') {
+                    System.out.print(Assets.YELLOW + Assets.WALL + Assets.RESET + " ");
+                } else if (aChar == '•') {
+                    System.out.print(Assets.ORANGE + Assets.FOOD + Assets.RESET + " ");
+                } else if (aChar == ' ') {
+                    System.out.print(Assets.EMPTY + " ");
+                } else {
+                    System.out.print(aChar + " "); // Default case
                 }
-
             }
             System.out.println();
         }
     }
 
+
     public static boolean isValidMove(char[][] grid, int x, int y) {
-        return grid[x][y] != Assets.WALL.charAt(0);
+        // A valid move is defined as moving into an empty square or a square containing food
+        return grid[x][y] == Assets.EMPTY.charAt(0) || grid[x][y] == Assets.FOOD.charAt(0);
     }
+
 
     public static void movePacman(char[][] grid, String direction) {
         int newX = pacmanX;
