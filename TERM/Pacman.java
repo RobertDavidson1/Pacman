@@ -10,6 +10,10 @@ public class Pacman {
     static int pacmanX, pacmanY;
     static int ghostX, ghostY;
 
+    // Track Pac mans current direction
+    static String currentPacmanSprite = Assets.PACMAN_RIGHT; // Default sprite is facing right
+
+
 
     public static class Assets{
         // Colours    
@@ -20,10 +24,15 @@ public class Pacman {
         public static final String BLUE = "\033[38;2;33;33;222m";
         public static final String RED = "\033[38;2;229;72;67m";
         public static final String GREEN = "\033[38;2;48;238;39m";
-        
+
+        // Pacman Sprites for Different Directions
+        public static final String PACMAN_RIGHT = "ᗧ";
+        public static final String PACMAN_LEFT = "ᗤ"; // You can change the sprite for left-facing Pacman
+        public static final String PACMAN_UP = "ᗢ";   // Customize the sprite for up-facing Pacman
+        public static final String PACMAN_DOWN = "ᗣ";
+
         // Characters
-        public static final String PACMAN = "⬤";
-        public static final String GHOST = "O";
+        public static final String GHOST = "⩄";
         public static final String WALL = "▀";
         public static final String FOOD = "•";
         public static final String EMPTY = " ";
@@ -74,7 +83,7 @@ public class Pacman {
         // Initialize Pac man's position
         pacmanX = 1;
         pacmanY = 1;
-        grid[pacmanX][pacmanY] = Assets.PACMAN.charAt(0);
+        grid[pacmanX][pacmanY] = currentPacmanSprite.charAt(0);
 
         // Initialize Ghost's position
         ghostX = HEIGHT - 2;
@@ -88,8 +97,8 @@ public class Pacman {
     public static void showGrid(char[][] grid) {
         for (char[] chars : grid) {
             for (char aChar : chars) {
-                if (aChar == Assets.PACMAN.charAt(0)) {
-                    System.out.print(Assets.YELLOW + Assets.PACMAN + Assets.RESET + " ");
+                if (aChar == currentPacmanSprite.charAt(0)) {
+                    System.out.print(Assets.YELLOW + currentPacmanSprite + Assets.RESET + " ");
                 } else if (aChar == Assets.GHOST.charAt(0)) {
                     System.out.print(Assets.PINK + Assets.GHOST + Assets.RESET + " ");
                 } else if (aChar == Assets.WALL.charAt(0)) {
@@ -115,6 +124,7 @@ public class Pacman {
     }
 
 
+
     public static boolean isValidMove(char[][] grid, int x, int y) {
         // A valid move is defined as moving into an empty square or a square containing food
         return grid[x][y] == Assets.EMPTY.charAt(0) || grid[x][y] == Assets.FOOD.charAt(0);
@@ -125,26 +135,34 @@ public class Pacman {
         int newX = pacmanX;
         int newY = pacmanY;
 
+        // Change Pacman's sprite based on the direction
         if (direction.equalsIgnoreCase("w")) {
             newX -= 1;
+            currentPacmanSprite = Assets.PACMAN_UP;
         } else if (direction.equalsIgnoreCase("s")) {
             newX += 1;
+            currentPacmanSprite = Assets.PACMAN_DOWN;
         } else if (direction.equalsIgnoreCase("a")) {
             newY -= 1;
+            currentPacmanSprite = Assets.PACMAN_LEFT;
         } else if (direction.equalsIgnoreCase("d")) {
             newY += 1;
+            currentPacmanSprite = Assets.PACMAN_RIGHT;
         } else {
             // Invalid input
             return;
         }
+
+        // Check if the move is valid
         if (isValidMove(grid, newX, newY)) {
-            // Update grid
+            // Update the grid
             grid[pacmanX][pacmanY] = Assets.EMPTY.charAt(0); // Remove Pacman from old position
             pacmanX = newX;
             pacmanY = newY;
-            grid[pacmanX][pacmanY] = Assets.PACMAN.charAt(0); // Place Pacman at new position
+            grid[pacmanX][pacmanY] = currentPacmanSprite.charAt(0); // Place Pacman with the new sprite
         }
     }
+
 
     public static void main(String[] args) {
         char[][] grid = initGrid(HEIGHT, WIDTH);
