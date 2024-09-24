@@ -1,7 +1,9 @@
 package TERM;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Pacman {
@@ -23,6 +25,11 @@ public class Pacman {
     // Counters for food
     static int initialFood;
     static int foodRemaining;
+
+    // Difficulty level (how good the ghost is at chasing Pacman)
+    static int difficulty;
+
+    static Random random = new Random();
 
     public static class Assets {
         // Colours represented as ANSI escape codes
@@ -219,8 +226,29 @@ public class Pacman {
         }
     }
 
-    public static void moveGhost(char[][] grid) {
-        greedyGhostMove(grid);
+    public static void updateGhostPosition(char[][] grid, int newX, int newY) {
+        // Restore the old position with the previous tile content
+        grid[ghostX][ghostY] = previousGhostTile;
+
+        ghostX = newX; // Update Ghost's x position
+        ghostY = newY; // Update Ghost's y position
+
+        // Store content of new tile before ghost moves onto it
+        previousGhostTile = grid[newX][newY];
+
+        // Place the ghost on new position
+        grid[newX][newY] = Assets.GHOST.charAt(0);
+    }
+
+    public static void moveGhost(char[][] grid, int percentGoodMoves) {
+        int chance = random.nextInt(100);
+
+        if (chance < percentGoodMoves) {
+            // Good move
+            greedyGhostMove(grid);
+        } else {
+            randomGhostMove(grid);
+        }
     }
 
     public static void greedyGhostMove(char[][] grid) {
@@ -253,28 +281,50 @@ public class Pacman {
         }
     }
 
-    public static void updateGhostPosition(char[][] grid, int newX, int newY) {
-        // Restore the old position with the previous tile content
-        grid[ghostX][ghostY] = previousGhostTile;
+    public static void randomGhostMove(char[][] grid) {
+        int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 
-        ghostX = newX; // Update Ghost's x position
-        ghostY = newY; // Update Ghost's y position
+        int[] direction = directions[random.nextInt(4)];
 
-        // Store content of new tile before ghost moves onto it
-        previousGhostTile = grid[newX][newY];
+        int newX = ghostX + direction[0];
+        int newY = ghostY + direction[1];
 
-        // Place the ghost on new position
-        grid[newX][newY] = Assets.GHOST.charAt(0);
+        if (isValidMove(grid, newX, newY)) {
+            updateGhostPosition(grid, newX, newY);
+        }
     }
 
-    public static void main(String[] args) {
+    public static void clearConsole() {
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                // For Windows systems
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                // For UNIX-like systems (Linux, macOS)
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            }
+        } catch (IOException | InterruptedException ex) {
+            System.out.println("Error while clearing the screen.");
+        }
+    }
+
+
+    public static void main (String[]args){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter A Difficulty Level (1, 2, 3): ");
+        difficulty = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+
         char[][] grid = initGame(GRID_HEIGHT, GRID_WIDTH);
         foodRemaining = initialFood;
-        Scanner scanner = new Scanner(System.in);
+
+
+        int percentGoodMoves = 30 * difficulty; // 30% good moves for difficulty 1, 60% for difficulty 2, 90% for difficulty 3
+
 
         while (true) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+            clearConsole();
 
             // Show the grid and score
             showGrid(grid);
@@ -290,8 +340,7 @@ public class Pacman {
             movePacman(grid, input);
 
             // Move Ghost
-            moveGhost(grid);
-
+            moveGhost(grid, percentGoodMoves);
         }
 
     }
