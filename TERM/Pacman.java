@@ -67,9 +67,7 @@ public class Pacman {
 
         // Place the art
         for (int i = 0; i < Assets.art.length; i++) {
-            for (int j = 0; j < Assets.art[i].length; j++) {
-                grid[startX+i][startY+j] = Assets.art[i][j];
-            }
+            System.arraycopy(Assets.art[i], 0, grid[startX + i], startY, Assets.art[i].length);
 
         }
 
