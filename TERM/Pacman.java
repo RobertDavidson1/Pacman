@@ -32,7 +32,7 @@ public class Pacman {
         public static final String PACMAN_DOWN = "ᗣ";
 
         // Characters
-        public static final String GHOST = "⩄";
+        public static final String GHOST = "⩍";
         public static final String WALL = "▀";
         public static final String FOOD = "•";
         public static final String EMPTY = " ";
@@ -134,20 +134,21 @@ public class Pacman {
     public static void movePacman(char[][] grid, String direction) {
         int newX = pacmanX;
         int newY = pacmanY;
+        String newSprite; // Temporary variable to hold the new sprite
 
-        // Change Pacman's sprite based on the direction
+        // Determine the new position and sprite based on the direction
         if (direction.equalsIgnoreCase("w")) {
             newX -= 1;
-            currentPacmanSprite = Assets.PACMAN_UP;
+            newSprite = Assets.PACMAN_UP;
         } else if (direction.equalsIgnoreCase("s")) {
             newX += 1;
-            currentPacmanSprite = Assets.PACMAN_DOWN;
+            newSprite = Assets.PACMAN_DOWN;
         } else if (direction.equalsIgnoreCase("a")) {
             newY -= 1;
-            currentPacmanSprite = Assets.PACMAN_LEFT;
+            newSprite = Assets.PACMAN_LEFT;
         } else if (direction.equalsIgnoreCase("d")) {
             newY += 1;
-            currentPacmanSprite = Assets.PACMAN_RIGHT;
+            newSprite = Assets.PACMAN_RIGHT;
         } else {
             // Invalid input
             return;
@@ -159,9 +160,11 @@ public class Pacman {
             grid[pacmanX][pacmanY] = Assets.EMPTY.charAt(0); // Remove Pacman from old position
             pacmanX = newX;
             pacmanY = newY;
+            currentPacmanSprite = newSprite; // Update sprite only after a valid move
             grid[pacmanX][pacmanY] = currentPacmanSprite.charAt(0); // Place Pacman with the new sprite
         }
     }
+
 
 
     public static void main(String[] args) {
