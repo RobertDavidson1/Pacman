@@ -47,5 +47,6 @@ public class Game {
         // Close the Scanner to prevent resource leaks
         scanner.close();
         System.out.println("Thank you for playing!");
+        System.out.print(Assets.RESET);
     }
 }
