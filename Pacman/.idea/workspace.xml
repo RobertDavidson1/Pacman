@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="2a96fda4-6ea2-4ad2-9a8c-ea25f3e8417a" name="Changes" comment="Update README.MD" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "RobertDavidson1"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "git@github.com:RobertDavidson1/Pacman.git",
+    "accountId": "2729edc1-886a-4088-997f-5f5c7ef48d99"
+  }
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5
+}]]></component>
+  <component name="ProjectId" id="2mqAFQ9S2eDIpYVCdUzNQcI3yCz" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/rob/Desktop/Pacman/Pacman",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2a96fda4-6ea2-4ad2-9a8c-ea25f3e8417a" name="Changes" comment="" />
+      <created>1727793628532</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1727793628532</updated>
+      <workItem from="1727793629565" duration="1737000" />
+    </task>
+    <task id="LOCAL-00001" summary="Delete UI folder">
+      <option name="closed" value="true" />
+      <created>1727793643327</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1727793643327</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Delete class files">
+      <option name="closed" value="true" />
+      <created>1727793697486</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1727793697486</updated>
+    </task>
+    <task id="LOCAL-00003" summary="ignore">
+      <option name="closed" value="true" />
+      <created>1727793773365</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1727793773365</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Delete Class files">
+      <option name="closed" value="true" />
+      <created>1727794059934</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1727794059934</updated>
+    </task>
+    <task id="LOCAL-00005" summary="ignore">
+      <option name="closed" value="true" />
+      <created>1727794083766</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1727794083766</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Script to compile and run the Game on Linux">
+      <option name="closed" value="true" />
+      <created>1727794364521</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1727794364521</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Ignore">
+      <option name="closed" value="true" />
+      <created>1727794371683</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1727794371683</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Scripts to run the game on Linux and Windows">
+      <option name="closed" value="true" />
+      <created>1727794549861</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1727794549861</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Moved files">
+      <option name="closed" value="true" />
+      <created>1727795136443</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1727795136443</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Moved files">
+      <option name="closed" value="true" />
+      <created>1727795150068</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1727795150068</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Update README.MD">
+      <option name="closed" value="true" />
+      <created>1727795158576</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1727795158576</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Delete UI folder" />
+    <MESSAGE value="Delete class files" />
+    <MESSAGE value="Delete Class files" />
+    <MESSAGE value="ignore" />
+    <MESSAGE value="Script to compile and run the Game on Linux" />
+    <MESSAGE value="Ignore" />
+    <MESSAGE value="Scripts to run the game on Linux and Windows" />
+    <MESSAGE value="Moved files" />
+    <MESSAGE value="Update README.MD" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update README.MD" />
+  </component>
+</project>
