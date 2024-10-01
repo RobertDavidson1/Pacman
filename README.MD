@@ -21,5 +21,5 @@
 -   Run `RunGame_Windows.bat`
 -   Or:
     -   Set encoding (CMD Prompt) : `chcp 65001'
-    -   Compile: `javac -d out\production\PacmanGame .\src\com\pacman\game\*.java`
+    -   Compile: `javac -d out\production\PacmanGame .\src\main\java\com\pacman\game\*.java`
     -   Run: `java -cp out\production\PacmanGame com.pacman.game.Game'
