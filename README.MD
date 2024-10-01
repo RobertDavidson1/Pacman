@@ -1,12 +1,19 @@
 ## Pacman Terminal Game
 
-![Example of Terminal Pacman](./TERM/img/term-example.jpg)
+### To Run:
 
-### To do:
-- Ghost moving logic (towards pacman)
-- ~~Different ghost sprite?~~
-- ~~Score counter (initial food - current food)~~
-- ~~Change colouring of CT2101 art to stand out more~~
-- End game logic
-  1. Death by ghost
-  2. All food eaten (display how long it took to beat?)
+
+
+#### Linux:
+- Clone the repository
+- Run `./RunGame_Linux.sh`
+- Or:
+  - Compile: `javac -d out/production/PacmanGame src/com/pacman/game/*.java`
+  - Run: `java -cp out/production/PacmanGame com.pacman.game.Game`
+
+#### Windows:
+- Clone the repository
+- Run `RunGame_Windows.bat`
+- Or:
+  - Compile: `javac -d out\production\PacmanGame src\com\pacman\game\*.java`
+  - Run: `java -cp out/production/PacmanGame com.pacman.game.Game`
