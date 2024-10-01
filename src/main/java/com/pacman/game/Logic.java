@@ -47,7 +47,9 @@ public class Logic {
             UI.displayWinScreen();
             return true;
         }
+        System.out.print(Assets.RESET);
         return false;
+        
     }
 
 
