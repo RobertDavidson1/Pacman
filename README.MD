@@ -20,6 +20,6 @@
 -   Clone the repository
 -   Run `RunGame_Windows.bat`
 -   Or:
-    -   In powershell:
-    -   Compile: `javac -d out\production\PacmanGame src\com\pacman\game\*.java`
-    -   Run: `java -Dfile.encoding=UTF-8 -cp out\production\PacmanGame com.pacman.game.Game'
+    -   Set encoding (CMD Prompt) : `chcp 65001'
+    -   Compile: `javac -d out\production\PacmanGame .\src\com\pacman\game\*.java`
+    -   Run: `java -cp out\production\PacmanGame com.pacman.game.Game'
