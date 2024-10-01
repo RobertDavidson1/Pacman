@@ -1,8 +1,11 @@
 ## Pacman Terminal Game
 
-### The game works best when ran through a system teriminal, allows the game to clear the screen between moves
+#### Note:
+- The game works best when ran through a system terminal
+  - Allows the game to clear the screen between moves
 
 
+### To run:
 
 #### Linux:
 - Clone the repository

@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class UI {
     private static final Scanner scanner = new Scanner(System.in);
 
+    // Method to display the welcome screen and prompt for difficulty level
     public static int displayWelcomeScreen() {
         clearGrid();
         for (String[] row : Assets.welcomeScreen) {
@@ -17,14 +18,14 @@ public class UI {
         System.out.print("                                ⨠  ");
         int difficulty = -1;
         try {
-            difficulty = scanner.nextInt();
+            difficulty = scanner.nextInt(); // Read the difficulty level from user input
             scanner.nextLine(); // Consume the newline character
         } catch (Exception e) {
             scanner.nextLine(); // Consume the newline character
-            return -1;
+            return -1; // Return -1 if an exception occurs
         }
         System.out.print(Assets.RESET);
-        return difficulty;
+        return difficulty; // Return the chosen difficulty level
     }
 
     public static boolean promptPlayAgain() {
@@ -43,7 +44,7 @@ public class UI {
     }
 
     public static void displayWinScreen() {
-
+        // Flashing effect for the win screen
         for (int i = 0; i < 11; i++) {
             clearGrid();
             for (String[] row : Assets.winScreen) {
@@ -115,6 +116,8 @@ public class UI {
         }
     }
 
+
+    // Display food remaining and difficulty
     public static void displayGameInfo(Grid grid, int difficulty) {
 
         System.out.printf(
