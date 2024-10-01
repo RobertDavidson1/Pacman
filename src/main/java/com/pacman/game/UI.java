@@ -110,7 +110,7 @@ public class UI {
 
     static void sleep() {
         try {
-            Thread.sleep(500);
+            Thread.sleep(350);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
