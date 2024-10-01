@@ -1,6 +1,6 @@
 ## Pacman Terminal Game
 
-### To Run:
+### The game works best when ran through a system teriminal, allows the game to clear the screen between moves
 
 
 
