@@ -33,11 +33,6 @@ public class Ghost {
 
         Random random = new Random();
         double randomChoice = random.nextDouble();
-        System.out.print(probabilityGoodMove);
-        System.out.println();
-        System.out.print(randomChoice);
-
-        UI.sleep();
         if (randomChoice < probabilityGoodMove) {
             greedyMove(pacmanX, pacmanY, grid);
         } else {
