@@ -48,7 +48,7 @@ public class Ghost {
         while (!moved) {
             // Randomly select a direction to move in
             int incrementX = directions[random.nextInt(3)];
-            int incrementY = directions[random.nextInt(3)];
+            int incrementY = (incrementX == 0) ? directions[random.nextInt(3)] : 0;
 
             // Check if the move is valid
             if (Grid.isValidMove(x + incrementX, y + incrementY)) {
