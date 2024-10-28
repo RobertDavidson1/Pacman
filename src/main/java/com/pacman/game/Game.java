@@ -13,36 +13,69 @@ public class Game {
     // Flag to determine if the game should be played again
     public static boolean playAgain = true;
 
+    // Round counter
+    public static int currentRound = 1;
+    public static final int MAX_ROUNDS = 3;
+
+    // Add getter method for currentRound
+    public static int getCurrentRound() {
+        return currentRound;
+    }
+
     // Main game loop
     public static void gameLoop() {
-        while (true) {
+        while (currentRound <= MAX_ROUNDS) {
             UI.clearGrid();
-
-            // Display the welcome screen and get the difficulty level
-            difficulty = UI.displayWelcomeScreen();
-
-            // Ensure the difficulty level is between 1 and 3
-            if (difficulty >= 1 && difficulty <= 3) {
-                break;
+            
+            // Only show welcome screen on first round
+            if (currentRound == 1) {
+                difficulty = UI.displayWelcomeScreen();
+                while (difficulty < 1 || difficulty > 3) {
+                    System.out.println("Please select a difficulty level between 1 and 3.");
+                    difficulty = UI.displayWelcomeScreen();
+                }
+            } else {
+                UI.displayRoundScreen(currentRound);
             }
-            System.out.println("Please select a difficulty level between 1 and 3.");
+
+            // Initialize the game grid and characters
+            int gridHeight = 11;
+            int gridWidth = 35;
+            Grid grid = new Grid(gridHeight, gridWidth);
+            Pacman pacman = new Pacman(1, 1, grid);
+
+            // Create ghosts based on current round
+            Ghost[] ghosts = new Ghost[currentRound];
+            switch (currentRound) {
+                case 1 -> ghosts[0] = new Ghost(gridHeight - 2, gridWidth - 2, grid, pacman, difficulty, "Blinky");
+                case 2 -> {
+                    ghosts[0] = new Ghost(gridHeight - 2, gridWidth - 2, grid, pacman, difficulty, "Blinky");
+                    ghosts[1] = new Ghost(gridHeight - 2, 1, grid, pacman, difficulty, "Pinky");
+                }
+                case 3 -> {
+                    ghosts[0] = new Ghost(gridHeight - 2, gridWidth - 2, grid, pacman, difficulty, "Blinky");
+                    ghosts[1] = new Ghost(gridHeight - 2, 1, grid, pacman, difficulty, "Pinky");
+                    ghosts[2] = new Ghost(1, gridWidth - 2, grid, pacman, difficulty, "Inky");
+                }
+            }
+
+            // Run the game logic with ghosts
+            boolean roundCompleted = Logic.runGame(difficulty, grid, pacman, ghosts);
+            
+            if (!roundCompleted) {
+                // Player lost
+                currentRound = 1; // Reset round counter
+                if (!playAgain) break;
+            } else {
+                // Player completed the round
+                currentRound++;
+                if (currentRound > MAX_ROUNDS) {
+                    UI.displayVictoryScreen(); // New method to show final victory
+                    currentRound = 1;
+                    if (!playAgain) break;
+                }
+            }
         }
-
-        // Initialize the game grid and characters
-        int gridHeight = 11;
-        int gridWidth = 35;
-        Grid grid = new Grid(gridHeight, gridWidth);
-        Pacman pacman = new Pacman(1, 1, grid);
-
-        // Create multiple ghosts
-        Ghost[] ghosts = {
-            new Ghost(gridHeight - 2, gridWidth - 2, grid, pacman, difficulty, "Blinky"),
-            new Ghost(gridHeight - 2, 1, grid, pacman, difficulty, "Pinky"),
-            new Ghost(1, gridWidth - 2, grid, pacman, difficulty, "Inky")
-        };
-
-        // Run the game logic with multiple ghosts
-        Logic.runGame(difficulty, grid, pacman, ghosts);
     }
 
     // Main method to start the game
