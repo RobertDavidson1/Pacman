@@ -33,10 +33,16 @@ public class Game {
         int gridWidth = 35;
         Grid grid = new Grid(gridHeight, gridWidth);
         Pacman pacman = new Pacman(1, 1, grid);
-        Ghost ghost = new Ghost(gridHeight - 2, gridWidth - 2, grid, pacman, difficulty);
 
-        // Run the game logic
-        Logic.runGame(difficulty, grid, pacman, ghost);
+        // Create multiple ghosts
+        Ghost[] ghosts = {
+            new Ghost(gridHeight - 2, gridWidth - 2, grid, pacman, difficulty, "Blinky"),
+            new Ghost(gridHeight - 2, 1, grid, pacman, difficulty, "Pinky"),
+            new Ghost(1, gridWidth - 2, grid, pacman, difficulty, "Inky")
+        };
+
+        // Run the game logic with multiple ghosts
+        Logic.runGame(difficulty, grid, pacman, ghosts);
     }
 
     // Main method to start the game
