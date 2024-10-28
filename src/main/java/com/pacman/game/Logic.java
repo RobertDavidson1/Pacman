@@ -2,7 +2,7 @@ package com.pacman.game;
 
 
 public class Logic {
-    public static void runGame(int difficulty, Grid grid, Pacman pacman, Ghost[] ghosts) {
+    public static boolean runGame(int difficulty, Grid grid, Pacman pacman, Ghost[] ghosts) {
         boolean gameIsRunning = true;
 
         while (gameIsRunning) {
@@ -11,7 +11,7 @@ public class Logic {
             grid.showGrid(ghosts); // Updated to pass ghosts array
 
             // Display game information such as food remaining and difficulty level
-            UI.displayGameInfo(grid, difficulty);
+            UI.displayGameInfo(grid, difficulty, Game.getCurrentRound()); // Updated to use getter
 
             // Get user input for Pacman's movement
             String input = getUserInput();
@@ -23,38 +23,39 @@ public class Logic {
                 ghost.move(pacman.getX(), pacman.getY(), grid);
             }
 
-            // Check if the game is over (either win or lose)
-            if (isGameOver(pacman, ghosts, grid)) {
+            // Check for ghost collision (game over)
+            if (checkGhostCollision(pacman, ghosts)) {
+                UI.displayLoseScreen();
                 gameIsRunning = false;
+                return false; // Player lost
+            }
+            
+            // Check if round is complete (all food eaten)
+            if (grid.getFoodRemaining() == 0) {
+                if (Game.getCurrentRound() == Game.MAX_ROUNDS) {
+                    // Only show victory screen if player completed final round
+                    UI.displayVictoryScreen();
+                } else {
+                    // Show round completion message for rounds 1 and 2
+                    UI.displayRoundComplete(Game.getCurrentRound());
+                }
+                gameIsRunning = false;
+                return true; // Round completed successfully
             }
         }
-        // Prompt the user to play again and update the playAgain flag
-        Game.playAgain = UI.promptPlayAgain();
+        return false;
     }
 
-
+    private static boolean checkGhostCollision(Pacman pacman, Ghost[] ghosts) {
+        for (Ghost ghost : ghosts) {
+            if (pacman.getX() == ghost.getX() && pacman.getY() == ghost.getY()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     private static String getUserInput() {
         return Game.scanner.nextLine().trim().toUpperCase();
     }
-
-    private static boolean isGameOver(Pacman pacman, Ghost[] ghosts, Grid grid) {
-        // Check collision with any ghost
-        for (Ghost ghost : ghosts) {
-            if (pacman.getX() == ghost.getX() && pacman.getY() == ghost.getY()) {
-                UI.displayLoseScreen();
-                return true;
-            }
-        }
-
-        if (grid.getFoodRemaining() == 0) {
-            UI.displayWinScreen();
-            return true;
-        }
-        
-        return false;
-        
-    }
-
-
 }
