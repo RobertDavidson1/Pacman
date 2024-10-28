@@ -13,6 +13,12 @@ public class Assets {
     public static final String RED = "\033[38;2;229;72;67m";
     public static final String GREEN = "\033[38;2;48;238;39m";
 
+    // Ghost colours
+    public static final String GHOST_RED = "\033[38;2;255;0;255m";
+    public static final String GHOST_PINK = "\033[38;2;255;184;255m";
+    public static final String GHOST_CYAN = "\033[38;2;0;255;255m";
+    
+
     // Pacman sprites for different directions
     public static final String PACMAN_RIGHT = "ᗧ";
     public static final String PACMAN_LEFT = "ᗤ";
@@ -55,6 +61,11 @@ public class Assets {
         charToColoredString.put(Assets.PACMAN_DOWN.charAt(0), Assets.YELLOW + Assets.PACMAN_DOWN + Assets.RESET + " ");
     }
 
+    // Add method to get colored ghost string
+    public static String getColoredGhostString(Ghost ghost) {
+        return ghost.getColor() + Assets.GHOST + Assets.RESET + " ";
+    }
+
     static String[][] welcomeScreen = {
             {"      ██████╗  █████╗  ██████╗███╗   ███╗ █████╗ ███╗   ██╗"},
             {"      ██╔══██╗██╔══██╗██╔════╝████╗ ████║██╔══██╗████╗  ██║"},
@@ -81,5 +92,5 @@ public class Assets {
             {"   ██║   ╚██████╔╝╚██████╔╝    ███████╗╚██████╔╝███████║███████╗██╗"},
             {"   ╚═╝    ╚═════╝  ╚═════╝     ╚══════╝ ╚═════╝ ╚══════╝╚══════╝╚═╝"},
     };
-
+    
 }
