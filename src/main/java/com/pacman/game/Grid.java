@@ -117,4 +117,30 @@ public class Grid {
     public void decrementFood() {
         food--;
     }
+
+    // Add new method to show grid with multiple ghosts
+    public void showGrid(Ghost[] ghosts) {
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                char cell = grid[i][j];
+                String output;
+                if (cell == Assets.GHOST.charAt(0)) {
+                    // Find which ghost is at this position
+                    Ghost ghostAtPosition = null;
+                    for (Ghost ghost : ghosts) {
+                        if (ghost.getX() == i && ghost.getY() == j) {
+                            ghostAtPosition = ghost;
+                            break;
+                        }
+                    }
+                    output = ghostAtPosition != null ? Assets.getColoredGhostString(ghostAtPosition) 
+                                                   : Assets.charToColoredString.get(cell);
+                } else {
+                    output = Assets.charToColoredString.getOrDefault(cell, Assets.RESET + cell + " ");
+                }
+                System.out.print(output);
+            }
+            System.out.println();
+        }
+    }
 }
