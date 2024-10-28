@@ -118,13 +118,46 @@ public class UI {
 
 
     // Display food remaining and difficulty
-    public static void displayGameInfo(Grid grid, int difficulty) {
-
+    public static void displayGameInfo(Grid grid, int difficulty, int round) {
         System.out.printf(
-                "              Food Remaining: %03d  |||  Difficulty: %d%n",
-                grid.getFoodRemaining(), difficulty
+                "        Round: %d  |||  Food Remaining: %03d  |||  Difficulty: %d%n",
+                round, grid.getFoodRemaining(), difficulty
         );
         System.out.print("                     Move (WASD) ⨠  ");
+    }
+
+    public static void displayRoundScreen(int round) {
+        clearGrid();
+        System.out.println(Assets.ORANGE + "\n\n");
+        System.out.println("                         ROUND " + round);
+        System.out.println("                    Press Enter to start");
+        System.out.print(Assets.RESET);
+        scanner.nextLine();
+    }
+
+    public static void displayVictoryScreen() {
+        clearGrid();
+        System.out.println(Assets.GREEN + "\n\n");
+        System.out.println("            CONGRATULATIONS! YOU BEAT ALL ROUNDS!");
+        System.out.println("                   YOU ARE THE CHAMPION!\n\n");
+        System.out.print(Assets.RESET);
+        
+        boolean playAgain = promptPlayAgain();
+        if (playAgain) {
+            Game.gameLoop();
+        } else {
+            System.out.println("                   Thank you for playing!");
+            System.exit(0);
+        }
+    }
+
+    public static void displayRoundComplete(int round) {
+        clearGrid();
+        System.out.println(Assets.GREEN + "\n\n");
+        System.out.println("                    ROUND " + round + " COMPLETE!");
+        System.out.println("              Press Enter to start next round");
+        System.out.print(Assets.RESET);
+        scanner.nextLine();
     }
 }
 
