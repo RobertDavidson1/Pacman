@@ -10,7 +10,7 @@ public class Ghost {
     double probabilityGoodMove;
 
     // The character in the cell before the ghost moved into it
-    private static char previousCell = Assets.FOOD.charAt(0);
+    private char previousCell = Assets.FOOD.charAt(0);
 
     private final String color; // Add color property
     private final String name; // Add name property
@@ -34,8 +34,8 @@ public class Ghost {
         
         this.name = name;
         
-        // Set the previous cell to contain food initially
-        previousCell = Assets.FOOD.charAt(0);
+        // Initialize previousCell for this ghost instance
+        this.previousCell = Assets.FOOD.charAt(0);
 
         // Update the grid to place the ghost at the starting position
         grid.updateCell(x, y, Assets.GHOST.charAt(0));
