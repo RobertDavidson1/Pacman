@@ -9,11 +9,13 @@ public class Ghost {
     // Probability of a good move
     double probabilityGoodMove;
 
-
     // The character in the cell before the ghost moved into it
     private static char previousCell = Assets.FOOD.charAt(0);
 
-    public Ghost(int startX, int startY, Grid grid, Pacman pacman, double difficulty)  {
+    private final String color; // Add color property
+    private final String name; // Add name property
+
+    public Ghost(int startX, int startY, Grid grid, Pacman pacman, double difficulty, String name) {
         // Initialize the ghost's starting position
         this.x = startX;
         this.y = startY;
@@ -22,6 +24,16 @@ public class Ghost {
         // The ghost's difficulty level
         this.probabilityGoodMove = 0.3 * difficulty;
 
+        // Assign color based on ghost name
+        this.color = switch (name.toLowerCase()) {
+            case "blinky" -> Assets.GHOST_RED;
+            case "pinky" -> Assets.GHOST_PINK;
+            case "inky" -> Assets.GHOST_CYAN;
+            default -> Assets.GHOST_RED;
+        };
+        
+        this.name = name;
+        
         // Set the previous cell to contain food initially
         previousCell = Assets.FOOD.charAt(0);
 
@@ -99,5 +111,9 @@ public class Ghost {
 
     public int getY() {
         return y;
+    }
+
+    public String getColor() {
+        return color;
     }
 }
