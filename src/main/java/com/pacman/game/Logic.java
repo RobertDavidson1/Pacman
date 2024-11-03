@@ -11,7 +11,7 @@ public class Logic {
             grid.showGrid(ghosts); // Updated to pass ghosts array
 
             // Display game information such as food remaining and difficulty level
-            UI.displayGameInfo(grid, difficulty, Game.getCurrentRound()); // Updated to use getter
+            UI.displayGameInfo(grid, difficulty, Game.getCurrentRound(), pacman); // Updated to pass pacman instance
 
             // Get user input for Pacman's movement
             String input = getUserInput();
@@ -24,7 +24,7 @@ public class Logic {
             }
 
             // Check for ghost collision (game over)
-            if (checkGhostCollision(pacman, ghosts)) {
+            if (!pacman.isInvincible() && checkGhostCollision(pacman, ghosts)) {
                 UI.displayLoseScreen();
                 gameIsRunning = false;
                 return false; // Player lost
