@@ -64,18 +64,24 @@ public class Ghost {
 
             // Check if the move is valid
             if (Grid.isValidMove(x + incrementX, y + incrementY)) {
-                // Restore the item in the previous cell
+                // Store the current cell's content before moving
+                char currentCell = grid.getCell(x + incrementX, y + incrementY);
+                
+                // Restore the previous cell's content
                 grid.updateCell(x, y, previousCell);
-                // Store the item in the cell we plan on moving to
-                previousCell = grid.getCell(x + incrementX, y + incrementY);
-                // Update the ghost's position
+                
+                // Update position
                 x += incrementX;
                 y += incrementY;
+                
+                // Store the new cell's content before placing ghost
+                previousCell = currentCell;
+                
+                // Place ghost in new position
+                grid.updateCell(x, y, Assets.GHOST.charAt(0));
                 moved = true;
             }
         }
-        // Update the grid with the ghost's new position
-        grid.updateCell(x, y, Assets.GHOST.charAt(0));
     }
 
     public void greedyMove(int pacmanX, int pacmanY, Grid grid) {
@@ -89,20 +95,20 @@ public class Ghost {
 
         // Move in the X direction if possible
         if (incrementX != 0 && Grid.isValidMove(x + incrementX, y)) {
-            grid.updateCell(x , y, previousCell); // Restore the item in previous cell (Ghost doesn't eat food)
-            previousCell = grid.getCell(x + incrementX, y); // Store the item in the cell we plan on moving too
-            x += incrementX; // Update the ghost's X position
+            char currentCell = grid.getCell(x + incrementX, y);
+            grid.updateCell(x, y, previousCell);
+            previousCell = currentCell;
+            x += incrementX;
         }
         // If moving in the X direction is not possible, try moving in the Y direction
-        else if (incrementY != 0 && Grid.isValidMove(x , y + incrementY)) {
-            grid.updateCell(x , y, previousCell); // Restore the item in previous cell (Ghost doesn't eat food)
-            previousCell = grid.getCell(x, y + incrementY); // Store the item in the cell we plan on moving too
-            y += incrementY; // Update the ghost's Y position
+        else if (incrementY != 0 && Grid.isValidMove(x, y + incrementY)) {
+            char currentCell = grid.getCell(x, y + incrementY);
+            grid.updateCell(x, y, previousCell);
+            previousCell = currentCell;
+            y += incrementY;
         }
 
-        // Update the grid with the ghost's new position
         grid.updateCell(x, y, Assets.GHOST.charAt(0));
-
     }
 
     public int getX() {

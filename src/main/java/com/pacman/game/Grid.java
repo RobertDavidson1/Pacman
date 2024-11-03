@@ -142,6 +142,10 @@ public class Grid {
         if (grid[x][y] == Assets.FOOD.charAt(0) && newValue != Assets.FOOD.charAt(0)) {
             food--;
         }
+        // If a ghost is moving and revealing food that was underneath it
+        else if (newValue == Assets.FOOD.charAt(0)) {
+            food++;
+        }
         grid[x][y] = newValue;
     }
 
