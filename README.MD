@@ -23,3 +23,9 @@
     -   Set encoding (CMD Prompt) : `chcp 65001'
     -   Compile: `javac -d out\production\PacmanGame .\src\main\java\com\pacman\game\*.java`
     -   Run: `java -cp out\production\PacmanGame com.pacman.game.Game'
+
+#### To Do:
+
+-   Fix invincible pacman and ghost coliision (ghosts should be removed from array)
+    -   Possible replace after X moves
+-   When invincible, ghosts should make the opposite move (i.e. away)
