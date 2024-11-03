@@ -1,5 +1,7 @@
 package com.pacman.game;
 
+import java.util.Random;
+
 public class Grid {
     // Static 2D array representing the game grid
     static char[][] grid = new char[0][];
@@ -63,6 +65,9 @@ public class Grid {
 
         // Add food randomly until we reach target amount
         addRandomFood(grid, targetFood, height, width);
+
+        // Add invincibility power-up randomly
+        addInvincibilityPowerUp(grid, height, width);
 
         return grid;
     }
@@ -205,6 +210,22 @@ public class Grid {
                 if (ghost.getPreviousCell() == Assets.FOOD.charAt(0)) {
                     food++;
                 }
+            }
+        }
+    }
+
+    private void addInvincibilityPowerUp(char[][] grid, int height, int width) {
+        Random rand = new Random();
+        boolean placed = false;
+        
+        while (!placed) {
+            int x = rand.nextInt(grid.length);
+            int y = rand.nextInt(grid[0].length);
+            
+            // Only place invincibility in empty spaces and not in the art area
+            if (grid[x][y] == Assets.EMPTY.charAt(0) && !isInArtArea(x, y, height, width)) {
+                grid[x][y] = Assets.INVINCIBLE.charAt(0);
+                placed = true;
             }
         }
     }
