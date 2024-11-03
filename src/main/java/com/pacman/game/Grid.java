@@ -42,10 +42,10 @@ public class Grid {
         
         // Calculate target food amount based on current round
         int targetFood = switch (Game.getCurrentRound()) {
-            case 1 -> maxFood / 5;
-            case 2 -> (maxFood * 2) / 5;
-            case 3 -> maxFood;
-            default -> maxFood / 5;
+            case 1 -> maxFood / 100;
+            case 2 -> (maxFood * 2) / 100;
+            case 3 -> (maxFood * 3) / 100;
+            default -> maxFood / 100;
         };
 
         // First fill with empty spaces
@@ -188,9 +188,21 @@ public class Grid {
     // Add method to count actual food in grid
     private void recountFood() {
         food = 0;
+        
+        // Count food in grid
         for (char[] row : grid) {
             for (char cell : row) {
                 if (cell == Assets.FOOD.charAt(0)) {
+                    food++;
+                }
+            }
+        }
+
+        // Check ghosts' previous positions for food only if ghosts exist
+        Ghost[] ghosts = Game.getGhosts();
+        if (ghosts != null) {
+            for (Ghost ghost : ghosts) {
+                if (ghost.getPreviousCell() == Assets.FOOD.charAt(0)) {
                     food++;
                 }
             }
