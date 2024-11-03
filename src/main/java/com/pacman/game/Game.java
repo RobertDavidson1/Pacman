@@ -22,6 +22,12 @@ public class Game {
         return currentRound;
     }
 
+    private static Ghost[] ghosts;
+
+    public static Ghost[] getGhosts() {
+        return ghosts;
+    }
+
     // Main game loop
     public static void gameLoop() {
         while (currentRound <= MAX_ROUNDS) {
@@ -45,7 +51,7 @@ public class Game {
             Pacman pacman = new Pacman(1, 1, grid);
 
             // Create ghosts based on current round
-            Ghost[] ghosts = new Ghost[currentRound];
+            ghosts = new Ghost[currentRound];
             switch (currentRound) {
                 case 1 -> ghosts[0] = new Ghost(gridHeight - 2, gridWidth - 2, grid, pacman, difficulty, "Blinky");
                 case 2 -> {
@@ -68,11 +74,12 @@ public class Game {
                 if (!playAgain) break;
             } else {
                 // Player completed the round
-                currentRound++;
-                if (currentRound > MAX_ROUNDS) {
-                    UI.displayVictoryScreen(); // New method to show final victory
+                if (currentRound == MAX_ROUNDS) {
+                    UI.displayVictoryScreen(); // Show final victory
                     currentRound = 1;
                     if (!playAgain) break;
+                } else {
+                    currentRound++;
                 }
             }
         }
