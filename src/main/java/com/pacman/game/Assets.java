@@ -17,6 +17,9 @@ public class Assets {
     public static final String GHOST_RED = "\033[38;2;229;72;67m";
     public static final String GHOST_PINK = "\033[38;2;255;184;255m";
     public static final String GHOST_CYAN = "\033[38;2;0;255;255m";
+
+    // Invincible mode
+    public static final String INVINCIBLE_PURPLE = "\033[38;2;200;131;232m";
     
 
     // Pacman sprites for different directions
@@ -30,6 +33,7 @@ public class Assets {
     public static final String WALL = "▀";
     public static final String FOOD = "•";
     public static final String EMPTY = " ";
+    public static final String INVINCIBLE = "I";
 
     // Art representing module code
     // R - Red, G - Green, Y - Yellow, B - Blue, • - Food,
@@ -59,6 +63,7 @@ public class Assets {
         charToColoredString.put(Assets.PACMAN_LEFT.charAt(0), Assets.YELLOW + Assets.PACMAN_LEFT + Assets.RESET + " ");
         charToColoredString.put(Assets.PACMAN_UP.charAt(0), Assets.YELLOW + Assets.PACMAN_UP + Assets.RESET + " ");
         charToColoredString.put(Assets.PACMAN_DOWN.charAt(0), Assets.YELLOW + Assets.PACMAN_DOWN + Assets.RESET + " ");
+        charToColoredString.put(Assets.INVINCIBLE.charAt(0), Assets.INVINCIBLE_PURPLE + Assets.INVINCIBLE + Assets.RESET + " ");
     }
 
     // Add method to get colored ghost string
