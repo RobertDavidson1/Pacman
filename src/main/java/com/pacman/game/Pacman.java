@@ -12,9 +12,8 @@ public class Pacman {
         currentSprite = Assets.PACMAN_RIGHT; // Default facing right
         this.grid = grid; // Assign the grid reference
 
-        // Place Pacman on the grid
+        // Place Pacman on the grid without decrementing food
         grid.updateCell(x, y, currentSprite.charAt(0));
-        grid.decrementFood(); // Decrement the food count because Pacman is placed on food
     }
 
     public void move(String direction) {
@@ -32,11 +31,6 @@ public class Pacman {
 
         // Check if the new position is a valid move
         if (Grid.isValidMove(newX, newY)) {
-            // If the new position contains food, decrement the food count
-            if (grid.getCell(newX, newY) == Assets.FOOD.charAt(0)) {
-                grid.decrementFood();
-            }
-
             // Remove Pacman from the old position
             grid.updateCell(x, y, Assets.EMPTY.charAt(0));
 
