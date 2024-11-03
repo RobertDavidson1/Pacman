@@ -139,6 +139,7 @@ public class Grid {
         // A valid move is defined as moving into:
         return grid[x][y] == Assets.FOOD.charAt(0) || // Food
                 grid[x][y] == Assets.EMPTY.charAt(0) || // Empty space
+                grid[x][y] == Assets.INVINCIBLE.charAt(0) || // Invincibility power-up
                 grid[x][y] == Pacman.getCurrentSprite().charAt(0); // Pacman (Ghost Case)
     }
 
