@@ -114,7 +114,7 @@ public class UI {
         
         // Display invincibility moves on a new line if active
         if (pacman.isInvincible()) {
-            System.out.printf("                   You are invincible for %d moves%n", 
+            System.out.printf("                 You are invincible for %d moves%n", 
                 pacman.getInvincibleMovesLeft());
         }
         
