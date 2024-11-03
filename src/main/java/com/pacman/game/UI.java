@@ -105,11 +105,20 @@ public class UI {
 
 
     // Display food remaining and difficulty
-    public static void displayGameInfo(Grid grid, int difficulty, int round) {
+    public static void displayGameInfo(Grid grid, int difficulty, int round, Pacman pacman) {
+        // Display main game info
         System.out.printf(
                 "        Round: %d  |||  Food Remaining: %03d  |||  Difficulty: %d%n",
                 round, grid.getFoodRemaining(), difficulty
         );
+        
+        // Display invincibility moves on a new line if active
+        if (pacman.isInvincible()) {
+            System.out.printf("                     You are invincible for %d moves%n", 
+                pacman.getInvincibleMovesLeft());
+        }
+        
+        // Move prompt on the last line
         System.out.print("                     Move (WASD) ⨠  ");
     }
 
