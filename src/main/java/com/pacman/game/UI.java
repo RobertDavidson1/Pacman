@@ -59,14 +59,7 @@ public class UI {
             sleep();
         }
 
-
-        boolean playAgain = promptPlayAgain();
-        if (playAgain) {
-            Game.gameLoop(); // Restart the game loop
-        } else {
-            System.out.println("                       Thank you for playing!");
-            System.exit(0); // Exit the program
-        }
+        Game.playAgain = promptPlayAgain();
     }
 
     public static void displayLoseScreen() {
@@ -84,13 +77,7 @@ public class UI {
             sleep();
         }
 
-        boolean playAgain = promptPlayAgain();
-        if (playAgain) {
-            Game.gameLoop(); // Restart the game loop
-        } else {
-            System.out.println("                       Thank you for playing!");
-            System.exit(0); // Exit the program
-        }
+        Game.playAgain = promptPlayAgain();
     }
 
     static void clearGrid() {
@@ -142,13 +129,7 @@ public class UI {
         System.out.println("                   YOU ARE THE CHAMPION!\n\n");
         System.out.print(Assets.RESET);
         
-        boolean playAgain = promptPlayAgain();
-        if (playAgain) {
-            Game.gameLoop();
-        } else {
-            System.out.println("                   Thank you for playing!");
-            System.exit(0);
-        }
+        Game.playAgain = promptPlayAgain();
     }
 
     public static void displayRoundComplete(int round) {
