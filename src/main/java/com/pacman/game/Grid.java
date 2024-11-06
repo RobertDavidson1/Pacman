@@ -21,12 +21,11 @@ public class Grid {
     }
 
     private int calculateMaxFood(int height, int width) {
-        // Total cells minus border walls
+        // Calculate total cells excluding walls and art
         int totalCells = height * width;
-        int wallCells = (height * 2) + (width * 2) - 4; // Border walls (subtract 4 for corners counted twice)
+        int wallCells = (height * 2) + (width * 2) - 4; 
         int artCells = 0;
         
-        // Count non-food cells in art
         for (char[] row : Assets.art) {
             for (char cell : row) {
                 if (cell != Assets.FOOD.charAt(0)) {
@@ -42,7 +41,7 @@ public class Grid {
     public char[][] initGame(int height, int width) {
         char[][] grid = new char[height][width];
         
-        // Calculate target food amount based on current round
+        // Calculate food amount based on current round (1%, 2%, or 3% of max)
         int targetFood = switch (Game.getCurrentRound()) {
             case 1 -> maxFood / 100;
             case 2 -> (maxFood * 2) / 100;
@@ -50,23 +49,16 @@ public class Grid {
             default -> maxFood / 100;
         };
 
-        // First fill with empty spaces
+        // Initialize grid components
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 grid[i][j] = Assets.EMPTY.charAt(0);
             }
         }
 
-        // Add walls
         addWallsToGrid(grid, height, width);
-        
-        // Add art
         placeArtInGrid(grid, height, width);
-
-        // Add food randomly until we reach target amount
         addRandomFood(grid, targetFood, height, width);
-
-        // Add invincibility power-up randomly
         addInvincibilityPowerUp(grid, height, width);
 
         return grid;
