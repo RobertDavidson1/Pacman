@@ -6,49 +6,33 @@ public class Logic {
         boolean gameIsRunning = true;
 
         while (gameIsRunning) {
-            // Clear the grid and display the current state
             UI.clearGrid();
-            grid.showGrid(ghosts); // Updated to pass ghosts array
-
-            // Display game information such as food remaining and difficulty level
-            UI.displayGameInfo(grid, difficulty, Game.getCurrentRound(), pacman); // Updated to pass pacman instance
-
-            // Get user input for Pacman's movement
-            String input = getUserInput();
-
-            // Move Pacman and the ghost based on the input
-            pacman.move(input);
-            // Move all ghosts
-            for (Ghost ghost : ghosts) {
-                ghost.move(pacman.getX(), pacman.getY(), grid);
-            }
-
-            // Check for ghost collision (game over)
-            if (!pacman.isInvincible() && checkGhostCollision(pacman, ghosts)) {
-                UI.displayLoseScreen();
-                gameIsRunning = false;
-                return false; // Player lost
-            }
             
-            // Check if round is complete (all food eaten)
+            // First check for collisions
+            checkGhostCollisions(pacman, ghosts, grid);
+            
+            // Then show the updated grid
+            grid.showGrid(ghosts);
+            UI.displayGameInfo(grid, difficulty, Game.getCurrentRound(), pacman);
+
+            String input = getUserInput();
+            pacman.move(input);
+
+            // Move remaining ghosts
+            for (Ghost ghost : ghosts) {
+                if (ghost != null) {
+                    ghost.move(pacman.getX(), pacman.getY(), grid);
+                    checkGhostCollisions(pacman, ghosts, grid);
+                }
+            }
+
             if (grid.getFoodRemaining() == 0) {
                 if (Game.getCurrentRound() == Game.MAX_ROUNDS) {
-                    // Only show victory screen if player completed final round
                     UI.displayVictoryScreen();
                 } else {
-                    // Show round completion message for rounds 1 and 2
                     UI.displayRoundComplete(Game.getCurrentRound());
                 }
                 gameIsRunning = false;
-                return true; // Round completed successfully
-            }
-        }
-        return false;
-    }
-
-    private static boolean checkGhostCollision(Pacman pacman, Ghost[] ghosts) {
-        for (Ghost ghost : ghosts) {
-            if (pacman.getX() == ghost.getX() && pacman.getY() == ghost.getY()) {
                 return true;
             }
         }
@@ -57,5 +41,31 @@ public class Logic {
 
     private static String getUserInput() {
         return Game.scanner.nextLine().trim().toUpperCase();
+    }
+
+    private static void checkGhostCollisions(Pacman pacman, Ghost[] ghosts, Grid grid) {
+        for (int i = 0; i < ghosts.length; i++) {
+            if (ghosts[i] != null && pacman.getX() == ghosts[i].getX() && pacman.getY() == ghosts[i].getY()) {
+                if (pacman.isInvincible()) {
+                    // Get ghost's current position and what was under it
+                    int ghostX = ghosts[i].getX();
+                    int ghostY = ghosts[i].getY();
+                    
+                    // First restore what was under the ghost
+                    grid.updateCell(ghostX, ghostY, Assets.EMPTY.charAt(0));
+                    
+                    // Then place Pacman there
+                    grid.updateCell(ghostX, ghostY, Pacman.getCurrentSprite().charAt(0));
+                    
+                    // Remove ghost from array
+                    ghosts[i] = null;
+                    
+                } else {
+                    UI.displayLoseScreen();
+                    Game.playAgain = false;
+                    break;
+                }
+            }
+        }
     }
 }
