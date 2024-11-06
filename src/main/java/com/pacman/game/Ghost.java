@@ -16,15 +16,10 @@ public class Ghost {
     private final String name; // Add name property
 
     public Ghost(int startX, int startY, Grid grid, Pacman pacman, double difficulty, String name) {
-        // Initialize the ghost's starting position
         this.x = startX;
         this.y = startY;
-
-        // Determine how good the Ghost moves are
-        // The ghost's difficulty level
         this.probabilityGoodMove = 0.3 * difficulty;
-
-        // Assign color based on ghost name
+        
         this.color = switch (name.toLowerCase()) {
             case "blinky" -> Assets.GHOST_RED;
             case "pinky" -> Assets.GHOST_PINK;
@@ -33,11 +28,7 @@ public class Ghost {
         };
         
         this.name = name;
-        
-        // Initialize previousCell for this ghost instance
         this.previousCell = Assets.EMPTY.charAt(0);
-
-        // Update the grid to place the ghost at the starting position
         grid.updateCell(x, y, Assets.GHOST.charAt(0));
     }
 
