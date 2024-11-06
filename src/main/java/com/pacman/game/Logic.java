@@ -54,19 +54,14 @@ public class Logic {
         for (int i = 0; i < ghosts.length; i++) {
             if (ghosts[i] != null && pacman.getX() == ghosts[i].getX() && pacman.getY() == ghosts[i].getY()) {
                 if (pacman.isInvincible()) {
-                    // Get ghost's current position and what was under it
+                    // Add points for eating ghost
+                    Game.addScore(200);
+                    
                     int ghostX = ghosts[i].getX();
                     int ghostY = ghosts[i].getY();
-                    
-                    // First restore what was under the ghost
                     grid.updateCell(ghostX, ghostY, Assets.EMPTY.charAt(0));
-                    
-                    // Then place Pacman there
                     grid.updateCell(ghostX, ghostY, Pacman.getCurrentSprite().charAt(0));
-                    
-                    // Remove ghost from array
                     ghosts[i] = null;
-                    
                 } else {
                     UI.displayLoseScreen();
                     Game.playAgain = false;
