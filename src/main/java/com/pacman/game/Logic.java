@@ -16,6 +16,13 @@ public class Logic {
             UI.displayGameInfo(grid, difficulty, Game.getCurrentRound(), pacman);
 
             String input = getUserInput();
+            
+            // Check for quit command
+            if (input.equals("Q")) {
+                Game.playAgain = false;
+                return false;
+            }
+            
             pacman.move(input);
 
             // Move remaining ghosts
