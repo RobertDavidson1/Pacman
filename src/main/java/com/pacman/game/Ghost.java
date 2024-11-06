@@ -33,13 +33,19 @@ public class Ghost {
     }
 
     public void move(int pacmanX, int pacmanY, Grid grid) {
-
         Random random = new Random();
         double randomChoice = random.nextDouble();
+        
         if (randomChoice < probabilityGoodMove) {
-            greedyMove(pacmanX, pacmanY, grid);
+            if (Pacman.isInvincible()) {
+                // Run away from Pacman
+                fleeFromPacman(pacmanX, pacmanY, grid);
+            } else {
+                // Chase Pacman (existing behavior)
+                greedyMove(pacmanX, pacmanY, grid);
+            }
         } else {
-            randomMove(grid); // Otherwise, call randomMove
+            randomMove(grid);
         }
     }
 
@@ -92,6 +98,34 @@ public class Ghost {
             x += incrementX;
         }
         // If moving in the X direction is not possible, try moving in the Y direction
+        else if (incrementY != 0 && Grid.isValidMove(x, y + incrementY)) {
+            char currentCell = grid.getCell(x, y + incrementY);
+            grid.updateCell(x, y, previousCell);
+            previousCell = currentCell;
+            y += incrementY;
+        }
+
+        grid.updateCell(x, y, Assets.GHOST.charAt(0));
+    }
+
+    // Add new method to flee from Pacman
+    private void fleeFromPacman(int pacmanX, int pacmanY, Grid grid) {
+        // Calculate the difference between the ghost's current position and Pacman's position
+        int deltaX = pacmanX - x;
+        int deltaY = pacmanY - y;
+
+        // Move in the opposite direction
+        int incrementX = deltaX != 0 ? -(deltaX / Math.abs(deltaX)) : 0;
+        int incrementY = deltaY != 0 ? -(deltaY / Math.abs(deltaY)) : 0;
+
+        // Try to move in X direction first (opposite to Pacman)
+        if (incrementX != 0 && Grid.isValidMove(x + incrementX, y)) {
+            char currentCell = grid.getCell(x + incrementX, y);
+            grid.updateCell(x, y, previousCell);
+            previousCell = currentCell;
+            x += incrementX;
+        }
+        // If moving in X direction is not possible, try Y direction
         else if (incrementY != 0 && Grid.isValidMove(x, y + incrementY)) {
             char currentCell = grid.getCell(x, y + incrementY);
             grid.updateCell(x, y, previousCell);
