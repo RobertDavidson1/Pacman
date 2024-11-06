@@ -5,8 +5,9 @@ public class Pacman {
     private int y; // Pacman's current y-coordinate
     private static String currentSprite; // Pacman's current sprite
     private final Grid grid; // Reference to the game grid
-    private int invincibleMovesLeft = 0; // Number of moves remaining for invincibility
-    private static final int INVINCIBLE_DURATION = 60; // 60 moves of invincibility
+    private static boolean invincible = false;
+    private int invincibleMovesLeft = 0;
+    private static final int INVINCIBLE_DURATION = 60;
 
     public Pacman(int startX, int startY, Grid grid) {
         this.x = startX; // Initialize x-coordinate
@@ -35,6 +36,7 @@ public class Pacman {
         if (Grid.isValidMove(newX, newY)) {
             // Check if moving onto invincibility power-up
             if (grid.getCell(newX, newY) == Assets.INVINCIBLE.charAt(0)) {
+                invincible = true;
                 invincibleMovesLeft = INVINCIBLE_DURATION;
             }
 
@@ -54,12 +56,15 @@ public class Pacman {
             // Decrease invincibility counter if active
             if (invincibleMovesLeft > 0) {
                 invincibleMovesLeft--;
+                if (invincibleMovesLeft == 0) {
+                    invincible = false;
+                }
             }
         }
     }
 
-    public boolean isInvincible() {
-        return invincibleMovesLeft > 0;
+    public static boolean isInvincible() {
+        return invincible;
     }
 
     public int getInvincibleMovesLeft() {
