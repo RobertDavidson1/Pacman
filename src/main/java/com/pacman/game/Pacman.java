@@ -6,7 +6,7 @@ public class Pacman {
     private static String currentSprite; // Pacman's current sprite
     private final Grid grid; // Reference to the game grid
     private int invincibleMovesLeft = 0; // Number of moves remaining for invincibility
-    private static final int INVINCIBLE_DURATION = 30; // 5 moves of invincibility
+    private static final int INVINCIBLE_DURATION = 60; // 60 moves of invincibility
 
     public Pacman(int startX, int startY, Grid grid) {
         this.x = startX; // Initialize x-coordinate
