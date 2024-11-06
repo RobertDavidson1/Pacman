@@ -28,6 +28,16 @@ public class Game {
         return ghosts;
     }
 
+    private static int totalScore = 0;  // Track total score across rounds
+
+    public static void addScore(int points) {
+        totalScore += points;
+    }
+
+    public static int getTotalScore() {
+        return totalScore;
+    }
+
     // Main game loop
     public static void gameLoop() {
         while (currentRound <= MAX_ROUNDS) {
@@ -35,12 +45,18 @@ public class Game {
             
             // Only show welcome screen on first round
             if (currentRound == 1) {
+                totalScore = 0;  // Reset score at start of new game
                 difficulty = UI.displayWelcomeScreen();
                 while (difficulty < 1 || difficulty > 3) {
                     System.out.println("Please select a difficulty level between 1 and 3.");
                     difficulty = UI.displayWelcomeScreen();
                 }
             } else {
+                if (!UI.promptContinueGame()) {
+                    UI.displayFinalScore(totalScore);
+                    playAgain = false;
+                    break;
+                }
                 UI.displayRoundScreen(currentRound);
             }
 
@@ -69,13 +85,13 @@ public class Game {
             boolean roundCompleted = Logic.runGame(difficulty, grid, pacman, ghosts);
             
             if (!roundCompleted) {
-                // Player lost
-                currentRound = 1; // Reset round counter
+                UI.displayFinalScore(totalScore);
+                currentRound = 1;
                 if (!playAgain) break;
             } else {
                 // Player completed the round
                 if (currentRound == MAX_ROUNDS) {
-                    UI.displayVictoryScreen(); // Show final victory
+                    UI.displayVictoryScreen(totalScore);
                     currentRound = 1;
                     if (!playAgain) break;
                 } else {
