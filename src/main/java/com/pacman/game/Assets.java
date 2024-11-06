@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Assets {
-    // Colours represented as ANSI escape codes
+    // Colors
     public static final String RESET = "\033[0m";
     public static final String PINK = "\033[38;2;234;130;229m";
     public static final String ORANGE = "\033[38;2;219;133;28m";
@@ -13,22 +13,19 @@ public class Assets {
     public static final String RED = "\033[38;2;229;72;67m";
     public static final String GREEN = "\033[38;2;48;238;39m";
 
-    // Ghost colours
+    // Ghost colors
     public static final String GHOST_RED = "\033[38;2;229;72;67m";
     public static final String GHOST_PINK = "\033[38;2;255;184;255m";
     public static final String GHOST_CYAN = "\033[38;2;0;255;255m";
 
-    // Invincible mode
-    public static final String INVINCIBLE_PURPLE = "\033[38;2;200;131;232m";
-    
+    // Invincible color
+        public static final String INVINCIBLE_PURPLE = "\033[38;2;255;0;255m";
 
-    // Pacman sprites for different directions
+    // Game sprites
     public static final String PACMAN_RIGHT = "ᗧ";
     public static final String PACMAN_LEFT = "ᗤ";
     public static final String PACMAN_UP = "ᗢ";
     public static final String PACMAN_DOWN = "ᗣ";
-
-    // Other game sprites
     public static final String GHOST = "⩍";
     public static final String WALL = "▀";
     public static final String FOOD = "•";
