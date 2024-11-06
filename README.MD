@@ -36,3 +36,6 @@
 - Powerup status indicator ✔
 - After each game over or when advancing to a new level, prompt the player to continue playing or quit the game.  ✔
     - Final score should be display  
+
+#### To Do:
+- Fix the continue playing / quit prompts 
