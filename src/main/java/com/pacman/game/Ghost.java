@@ -6,10 +6,10 @@ public class Ghost {
     // The ghost's current position
     private int x, y;
 
-    // Probability of a good move
-    double probabilityGoodMove;
+    // Chance to make an intelligent move vs random
+    private double probabilityGoodMove;
 
-    // The character in the cell before the ghost moved into it
+    // Stores what's under the ghost
     private char previousCell = Assets.EMPTY.charAt(0);
 
     private final String color; // Add color property
