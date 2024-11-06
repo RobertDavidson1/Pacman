@@ -149,6 +149,41 @@ public class UI {
         System.out.print(Assets.RESET);
         scanner.nextLine();
     }
+
+    public static boolean promptContinueGame() {
+        while (true) {
+            System.out.printf("%n                Current Score: %d%n", Game.getTotalScore());
+            System.out.print("           Continue to next round? (Y/N): ");
+            String option = scanner.nextLine().trim();
+
+            if (option.equalsIgnoreCase("Y")) {
+                return true;
+            } else if (option.equalsIgnoreCase("N")) {
+                return false;
+            }
+            System.out.println("              Invalid input! Please enter 'Y' or 'N'.");
+        }
+    }
+
+    public static void displayFinalScore(int score) {
+        System.out.println(Assets.YELLOW + "\n\n");
+        System.out.println("                   GAME OVER!");
+        System.out.printf("                 Final Score: %d%n%n", score);
+        System.out.print(Assets.RESET);
+        
+        Game.playAgain = promptPlayAgain();
+    }
+
+    public static void displayVictoryScreen(int score) {
+        clearGrid();
+        System.out.println(Assets.GREEN + "\n\n");
+        System.out.println("            CONGRATULATIONS! YOU BEAT ALL ROUNDS!");
+        System.out.println("                   YOU ARE THE CHAMPION!");
+        System.out.printf("                 Final Score: %d%n%n", score);
+        System.out.print(Assets.RESET);
+        
+        Game.playAgain = promptPlayAgain();
+    }
 }
 
 
