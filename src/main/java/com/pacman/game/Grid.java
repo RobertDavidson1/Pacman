@@ -152,6 +152,8 @@ public class Grid {
         else if (newValue == Assets.FOOD.charAt(0)) {
             food++;
         }
+        
+        // Update the cell with the new value
         grid[x][y] = newValue;
     }
 
@@ -171,20 +173,22 @@ public class Grid {
             for (int j = 0; j < grid[i].length; j++) {
                 char cell = grid[i][j];
                 String output;
-                if (cell == Assets.GHOST.charAt(0)) {
-                    // Find which ghost is at this position
-                    Ghost ghostAtPosition = null;
-                    for (Ghost ghost : ghosts) {
-                        if (ghost.getX() == i && ghost.getY() == j) {
-                            ghostAtPosition = ghost;
-                            break;
-                        }
+                
+                // Check if there's a ghost at this position
+                Ghost ghostAtPosition = null;
+                for (Ghost ghost : ghosts) {
+                    if (ghost != null && ghost.getX() == i && ghost.getY() == j) {
+                        ghostAtPosition = ghost;
+                        break;
                     }
-                    output = ghostAtPosition != null ? Assets.getColoredGhostString(ghostAtPosition) 
-                                                   : Assets.charToColoredString.get(cell);
+                }
+                
+                if (ghostAtPosition != null) {
+                    output = Assets.getColoredGhostString(ghostAtPosition);
                 } else {
                     output = Assets.charToColoredString.getOrDefault(cell, Assets.RESET + cell + " ");
                 }
+                
                 System.out.print(output);
             }
             System.out.println();
@@ -208,7 +212,7 @@ public class Grid {
         Ghost[] ghosts = Game.getGhosts();
         if (ghosts != null) {
             for (Ghost ghost : ghosts) {
-                if (ghost.getPreviousCell() == Assets.FOOD.charAt(0)) {
+                if (ghost != null && ghost.getPreviousCell() == Assets.FOOD.charAt(0)) {
                     food++;
                 }
             }
